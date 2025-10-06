@@ -1,0 +1,33 @@
+table LoB
+	lineageTag: 17675dfc-6f21-48a7-9fad-b6442dc1735d
+
+	column LoBID
+		dataType: int64
+		formatString: 0
+		lineageTag: fa1d7226-dfb3-4014-b8c1-3e0f8d62a083
+		summarizeBy: none
+		sourceColumn: LoBID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: c456d6d5-d111-42a1-88ce-c3dec18b443e
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition LoB = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\Kaboodle\Acumen\Sample1.xlsx"), null, true),
+				    LoB_Sheet = Source{[Item="LoB",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(LoB_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"LoBID", Int64.Type}, {"Name", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

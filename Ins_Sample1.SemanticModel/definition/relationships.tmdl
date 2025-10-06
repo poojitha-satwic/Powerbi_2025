@@ -1,0 +1,22 @@
+relationship 1ce83d3a-1ad1-2d99-31b8-8c5ebe437509
+	fromColumn: Fact_Policy.AgencyID
+	toColumn: Agency.AgencyID
+
+relationship e41ed4a2-5313-23cd-db29-ebc07e4c99f7
+	fromColumn: Fact_Policy.LoBID
+	toColumn: LoB.LoBID
+
+relationship cf636a7a-bb25-3fbc-bfef-7f4c0ba6350c
+	fromColumn: Fact_Claim.LoBID
+	toColumn: LoB.LoBID
+
+relationship 5a741dec-7027-7ba7-a794-f3b679eb51a1
+	fromColumn: Fact_Claim.PolicyID
+	toColumn: Policy.PolicyID
+
+relationship fd04f961-b830-b281-5047-0e12d6ff3f39
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: Fact_Claim.PolicyID
+	toColumn: Fact_Policy.PolicyID
+

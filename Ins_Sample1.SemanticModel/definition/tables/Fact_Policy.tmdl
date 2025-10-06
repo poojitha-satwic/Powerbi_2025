@@ -1,0 +1,52 @@
+table Fact_Policy
+	lineageTag: 80dda899-8ea8-4db0-8984-e667b76fdc45
+
+	column PolicyID
+		dataType: int64
+		formatString: 0
+		lineageTag: e3f304f9-1b10-4735-b184-5798eb524259
+		summarizeBy: none
+		sourceColumn: PolicyID
+
+		annotation SummarizationSetBy = Automatic
+
+	column AgencyID
+		dataType: int64
+		formatString: 0
+		lineageTag: b0b8cd82-4599-4301-aecf-dc8a984e9b8e
+		summarizeBy: none
+		sourceColumn: AgencyID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LoBID
+		dataType: int64
+		formatString: 0
+		lineageTag: c6cacd93-f0be-42d3-bc70-b8b0f0cc1bcf
+		summarizeBy: none
+		sourceColumn: LoBID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prem
+		dataType: int64
+		formatString: 0
+		lineageTag: ac76d7e4-3396-43f6-aad6-34ace56c3cf6
+		summarizeBy: sum
+		sourceColumn: Prem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Policy = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\Kaboodle\Acumen\Sample1.xlsx"), null, true),
+				    Fact_Policy_Sheet = Source{[Item="Fact_Policy",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Fact_Policy_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"PolicyID", Int64.Type}, {"AgencyID", Int64.Type}, {"LoBID", Int64.Type}, {"Prem", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

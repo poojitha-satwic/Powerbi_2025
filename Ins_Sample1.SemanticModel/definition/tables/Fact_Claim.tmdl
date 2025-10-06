@@ -1,0 +1,52 @@
+table Fact_Claim
+	lineageTag: f8148c3d-17d0-4a62-9a96-7403fda92a9d
+
+	column ClaimID
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a8496cc-60ed-4e6b-bffc-9b73c39d5c9c
+		summarizeBy: count
+		sourceColumn: ClaimID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PolicyID
+		dataType: int64
+		formatString: 0
+		lineageTag: f72bbe8e-9fb1-47ff-921a-afddf4a08e45
+		summarizeBy: none
+		sourceColumn: PolicyID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LoBID
+		dataType: int64
+		formatString: 0
+		lineageTag: 94f78f18-d0b6-4181-b4c1-8d06bf14df32
+		summarizeBy: none
+		sourceColumn: LoBID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Paid
+		dataType: int64
+		formatString: 0
+		lineageTag: 055d3ce9-5104-4c01-b74c-cce4a650ba15
+		summarizeBy: sum
+		sourceColumn: Paid
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Claim = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\Kaboodle\Acumen\Sample1.xlsx"), null, true),
+				    Fact_Claim_Sheet = Source{[Item="Fact_Claim",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Fact_Claim_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ClaimID", Int64.Type}, {"PolicyID", Int64.Type}, {"LoBID", Int64.Type}, {"Paid", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
