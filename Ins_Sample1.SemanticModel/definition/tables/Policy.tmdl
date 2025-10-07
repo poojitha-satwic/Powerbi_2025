@@ -1,20 +1,20 @@
 table Policy
 	lineageTag: d2a17b0c-7c21-4776-b435-3adb5e441ef2
 
-	column PolicyID
+	column PID
 		dataType: int64
 		formatString: 0
 		lineageTag: c528a100-842e-4424-86bd-7b7855ec3105
 		summarizeBy: none
-		sourceColumn: PolicyID
+		sourceColumn: PID
 
 		annotation SummarizationSetBy = Automatic
 
-	column Name
+	column PName
 		dataType: string
 		lineageTag: b1735a7e-dc9b-49fd-b370-79d3bb1deb07
 		summarizeBy: none
-		sourceColumn: Name
+		sourceColumn: PName
 
 		annotation SummarizationSetBy = Automatic
 
@@ -25,9 +25,10 @@ table Policy
 				    Source = Excel.Workbook(File.Contents("D:\Kaboodle\Acumen\Sample1.xlsx"), null, true),
 				    Policy_Sheet = Source{[Item="Policy",Kind="Sheet"]}[Data],
 				    #"Promoted Headers" = Table.PromoteHeaders(Policy_Sheet, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"PolicyID", Int64.Type}, {"Name", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"PolicyID", Int64.Type}, {"Name", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Name", "PName"}, {"PolicyID", "PID"}})
 				in
-				    #"Changed Type"
+				    #"Renamed Columns"
 
 	annotation PBI_ResultType = Table
 
