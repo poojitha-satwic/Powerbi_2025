@@ -12,7 +12,7 @@ relationship cf636a7a-bb25-3fbc-bfef-7f4c0ba6350c
 
 relationship 5a741dec-7027-7ba7-a794-f3b679eb51a1
 	fromColumn: Fact_Claim.PolicyID
-	toColumn: Policy.PolicyID
+	toColumn: Policy.PID
 
 relationship fd04f961-b830-b281-5047-0e12d6ff3f39
 	crossFilteringBehavior: bothDirections

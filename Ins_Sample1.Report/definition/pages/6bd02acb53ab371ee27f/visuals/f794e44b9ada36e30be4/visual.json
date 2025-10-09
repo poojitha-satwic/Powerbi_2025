@@ -1,18 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
-  "name": "1ee3f2d8291fa3ffd4bc",
+  "name": "f794e44b9ada36e30be4",
   "position": {
-    "x": 0,
+    "x": 313.70319961244786,
     "y": 0,
-    "z": 0,
-    "height": 279.68719001591734,
-    "width": 279.68719001591734
+    "z": 3003,
+    "height": 487.56280421693697,
+    "width": 685.98952686336486,
+    "tabOrder": 3002
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "barChart",
     "query": {
       "queryState": {
-        "Values": {
+        "Category": {
           "projections": [
             {
               "field": {
@@ -26,27 +27,49 @@
                 }
               },
               "queryRef": "Agency.Name",
-              "nativeQueryRef": "Name"
-            },
+              "nativeQueryRef": "Name",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
             {
               "field": {
-                "Aggregation": {
+                "Column": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Fact_Policy"
-                        }
-                      },
-                      "Property": "Prem"
+                    "SourceRef": {
+                      "Entity": "Fact_Policy"
                     }
                   },
-                  "Function": 0
+                  "Property": "PolicyID"
                 }
               },
-              "queryRef": "Sum(Fact_Policy.Prem)",
-              "nativeQueryRef": "Sum of Prem"
-            },
+              "queryRef": "Fact_Policy.PolicyID",
+              "nativeQueryRef": "PolicyID"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Policy"
+                    }
+                  },
+                  "Property": "AgencyID"
+                }
+              },
+              "queryRef": "Fact_Policy.AgencyID",
+              "nativeQueryRef": "AgencyID"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
             {
               "field": {
                 "Aggregation": {
@@ -89,7 +112,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "drillFilterOtherVisuals": true
@@ -97,7 +121,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "540290ab30cc1d732a07",
+        "name": "c8f637f97167620ce79a",
         "field": {
           "Column": {
             "Expression": {
@@ -111,26 +135,7 @@
         "type": "Categorical"
       },
       {
-        "name": "9a8b9dd1c261254c3d2b",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Fact_Policy"
-                  }
-                },
-                "Property": "Prem"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "09b526323425cae803de",
+        "name": "fe5804f7dce43d0de52d",
         "field": {
           "Aggregation": {
             "Expression": {
@@ -144,6 +149,34 @@
               }
             },
             "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "15a5fa6f30d760a7a74a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Policy"
+              }
+            },
+            "Property": "AgencyID"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ac84e78fa2829eca3605",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Policy"
+              }
+            },
+            "Property": "PolicyID"
           }
         },
         "type": "Advanced"
